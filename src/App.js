@@ -1,5 +1,5 @@
 import './App.css';
-import logo from './logo.png';
+import logo from './logo.jpg';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
 import Launches from './components/Launches.js';
@@ -18,7 +18,7 @@ function App() {
           <img
             src={logo}
             alt="SpaceX"
-            style={{ width: 100, display: 'block', margin: 'auto' }}
+            style={{ width: 400, display: 'block', margin: 'auto' }}
           />
           <Route exact path="/" component={Launches} />
           <Route exact path="/launch/:flight_number" component={Launch} />

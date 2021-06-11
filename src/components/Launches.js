@@ -1,5 +1,6 @@
 import gql from 'graphql-tag';
-import { Query } from 'react-apollo';
+import { Query, useQuery } from 'react-apollo';
+import FilterSuccess from './FilterSuccess';
 import LaunchItem from './LaunchItem';
 import MissioKey from './MissionKey';
 
@@ -15,12 +16,38 @@ const LAUNCHES_QUERY = gql`
   }
 `;
 
-export default function Launches() {
+export default function Launches({
+  handleChange,
+  filterEnabled,
+  setFilterEnabled
+}) {
+  const {
+    loading: launchesLoading,
+    error: launchesError,
+    data: { launches } = {}
+  } = useQuery(LAUNCHES_QUERY);
+
+  // if (loading) return <h4>Loading...</h4>;
+
   return (
     <>
       <h1 className="display-4 my-3">Launches</h1>
       <MissioKey />
-      <Query query={LAUNCHES_QUERY}>
+      <FilterSuccess
+        handleChange={handleChange}
+        filterEnabled={filterEnabled}
+        setFilterEnabled={setFilterEnabled}
+      />
+
+      {launchesLoading ? (
+        <h4>Loading...</h4>
+      ) : launchesError ? (
+        <h4>Error</h4>
+      ) : (
+        launches.map((launch, i) => <LaunchItem key={i} launch={launch} />)
+      )}
+
+      {/* <Query query={LAUNCHES_QUERY}>
         {({ loading, error, data }) => {
           if (loading) return <h4>Loading...</h4>;
           if (error) console.log(error);
@@ -33,7 +60,7 @@ export default function Launches() {
             </>
           );
         }}
-      </Query>
+      </Query> */}
     </>
   );
 }
