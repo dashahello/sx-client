@@ -1,12 +1,4 @@
-import { useEffect, useState } from 'react';
-
-export default function FilterSuccess() {
-  const [filterEnabled, setFilterEnabled] = useState('false');
-
-  // useEffect(() => {
-  //   console.log(filterEnabled);
-  // }, [filterEnabled]);
-
+export default function FilterSuccess({ filterEnabled, setFilterEnabled }) {
   function handleChange() {
     setFilterEnabled(filterEnabled ? false : true);
   }

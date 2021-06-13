@@ -4,12 +4,19 @@ import Moment from 'react-moment';
 import { Link } from 'react-router-dom';
 
 export default function LaunchItem({
+  filterEnabled,
   launch: { flight_number, mission_name, launch_date_local, launch_success }
 }) {
   return (
     <div
       className="card card-body mb-3"
-      style={launch_success ? { display: 'block' } : { display: 'none' }}
+      style={
+        !filterEnabled
+          ? { display: 'block' }
+          : launch_success
+          ? { display: 'block' }
+          : { display: 'none' }
+      }
     >
       <div className="row">
         <div className="col-md-9">
